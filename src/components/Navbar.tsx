@@ -3,13 +3,25 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { cn } from '../lib/utils';
 
-export function Navbar() {
+interface NavbarProps {
+    onOpenChallenge: () => void;
+}
+
+export function Navbar({ onOpenChallenge }: NavbarProps) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const navLinks = [
         { name: 'WORK', href: '#work', id: '01' },
-        { name: 'CONTACT', href: '#contact', id: '09' },
+        { name: 'CHALLENGE US', href: '#', id: '09', action: true },
     ];
+
+    const handleLinkClick = (e: React.MouseEvent, link: typeof navLinks[0]) => {
+        if (link.action) {
+            e.preventDefault();
+            onOpenChallenge();
+            setIsMobileMenuOpen(false);
+        }
+    };
 
     return (
         <motion.nav
@@ -24,16 +36,20 @@ export function Navbar() {
             )}>
                 {/* Logo Area */}
                 <a href="#" className="flex items-center gap-2 group">
-                    <div className="w-2 h-2 bg-white rounded-full group-hover:bg-green-400 transition-colors" />
-                    <span className="font-bold tracking-widest text-sm">KINETIC_LAB</span>
+                    <img
+                        src="/port-ai/logo.png"
+                        alt="Kinetic Lab Logo"
+                        className="h-8 w-auto object-contain transition-transform group-hover:scale-105"
+                    />
                 </a>
 
                 {/* Desktop Links */}
                 <div className="hidden md:flex items-center gap-8">
-                    {navLinks.filter(l => l.name !== 'ABOUT').map((link) => (
+                    {navLinks.map((link) => (
                         <a
                             key={link.name}
                             href={link.href}
+                            onClick={(e) => handleLinkClick(e, link)}
                             className="text-xs font-mono text-white/60 hover:text-white transition-colors flex items-center gap-1 group"
                         >
                             <span className="text-[10px] text-white/30 opacity-0 group-hover:opacity-100 transition-opacity">[{link.id}]</span>
@@ -61,12 +77,12 @@ export function Navbar() {
                         className="absolute top-full left-0 right-0 mt-2 p-2 mx-4 bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl"
                     >
                         <div className="flex flex-col gap-1">
-                            {navLinks.filter(l => l.name !== 'ABOUT').map((link) => (
+                            {navLinks.map((link) => (
                                 <a
                                     key={link.name}
                                     href={link.href}
                                     className="p-4 text-center text-sm font-mono text-white/80 hover:bg-white/5 rounded-xl transition-colors border border-transparent hover:border-white/5"
-                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    onClick={(e) => handleLinkClick(e, link)}
                                 >
                                     <span className="text-xs text-white/30 mr-2">{link.id} //</span>
                                     {link.name}

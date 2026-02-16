@@ -1,7 +1,11 @@
 import { motion } from 'framer-motion';
 import { Mail } from 'lucide-react';
 
-export function Contact() {
+interface ContactProps {
+    onOpenChallenge?: () => void;
+}
+
+export function Contact({ onOpenChallenge }: ContactProps) {
     return (
         <section id="contact" className="py-20 px-4 bg-charcoal">
             <div className="max-w-4xl mx-auto text-center">
@@ -18,15 +22,15 @@ export function Contact() {
                     We are always looking for visionary partners. Whether you have a specific project or just a vague idea, let's talk.
                 </p>
 
-                <motion.a
-                    href="mailto:contact@kinetic-lab.studio"
+                <motion.button
+                    onClick={onOpenChallenge}
                     className="inline-flex items-center space-x-3 px-8 py-4 bg-white text-black font-bold tracking-widest uppercase hover:bg-neutral-200 transition-colors rounded-full"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                 >
                     <span>Start a Project</span>
                     <Mail size={18} />
-                </motion.a>
+                </motion.button>
 
                 <div className="mt-20 flex justify-center space-x-10">
                     {/* Social links or other footer content can go here if needed in the future */}
