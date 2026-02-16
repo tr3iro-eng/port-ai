@@ -39,7 +39,7 @@ export function Navbar({ onOpenChallenge }: NavbarProps) {
                     <img
                         src="/port-ai/logo.png"
                         alt="Kinetic Lab Logo"
-                        className="h-10 md:h-12 w-auto object-contain transition-transform group-hover:scale-105"
+                        className="h-14 md:h-16 w-auto object-contain transition-transform group-hover:scale-105"
                     />
                 </a>
 
